@@ -25,6 +25,7 @@ public class Schip{
             if(i != null){
                 containers.remove(i); //verwijder de container van het schip
                 sem.release(); //release the lock
+                System.out.println(naam + " geeft " + i.getNaam());
                 return i;
             }
         }
