@@ -1,7 +1,8 @@
-public class Vrachtwagen extends HavenElement{
+public class Vrachtwagen{
     private boolean bevatContainer;
+    private String naam;
     
     Vrachtwagen(String naam){
-        super(naam);
+        this.naam = naam;
     }
 }
