@@ -1,19 +1,14 @@
 import java.util.ArrayList;
 import java.util.concurrent.*; 
 
-public class Schip{
-    private String naam;
-    private int geladenContainers = 7;
-    private ArrayList<Container> containers = new ArrayList<Container>();
+public abstract class Storage{
+    private String name;
     private Semaphore sem; 
+    public ArrayList<Container> containers = new ArrayList<Container>();
 
-    Schip(String naam){
-        this.naam = naam;
+    Storage(String name){
+        this.name = name;
         sem = new Semaphore(1); 
-        //vul de arraylist met het aantal geladen containers
-        for(int i = 1; i <= geladenContainers; i++){
-            containers.add(new Container("Container " + i));
-        }
     }
 
     public Container getContainer(){
@@ -25,11 +20,19 @@ public class Schip{
             if(i != null){
                 containers.remove(i); //verwijder de container van het schip
                 sem.release(); //release the lock
-                System.out.println(naam + " geeft " + i.getNaam());
+                System.out.println(name + " geeft " + i.getName());
                 return i;
             }
         }
         sem.release(); //release the lock
         return null;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public int countContainers(){
+        return containers.size();
     }
 }

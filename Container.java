@@ -1,10 +1,10 @@
 public class Container{
-    String naam;
-    Container(String naam){
-        this.naam = naam;
+    String name;
+    Container(String name){
+        this.name = name;
     }
 
-    public String getNaam(){
-        return naam;
+    public String getName(){
+        return name;
     }
 }

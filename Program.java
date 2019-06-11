@@ -1,16 +1,20 @@
 public class Program {
     public static void main(String[] args) {
-        Schip schip = new Schip("Schip 1");
-        Kade kade = new Kade("Kade 1");
+        int loadedContainers = 7; //containers on the ship
+        int roomOnWall = 5; //how much containers fit on the wall
+        Ship ship = new Ship("Schip 1", loadedContainers);
+        Wall wall = new Wall("Kade 1", roomOnWall);
 
-        Kraan kraan1 = new Kraan("Kraan 1", kade, schip);
-        Kraan kraan2 = new Kraan("Kraan 2", kade, schip);
+        Crane crane1 = new Crane("Kraan 1", wall, ship);
+        Crane crane2 = new Crane("Kraan 2", wall, ship);
 
-        Vrachtwagen wagen1 = new Vrachtwagen("Vrachtwagen 1");
-        Vrachtwagen wagen2 = new Vrachtwagen("Vrachtwagen 2");
-        Vrachtwagen wagen3 = new Vrachtwagen("Vrachtwagen 3");
+        Truck truck1 = new Truck("Vrachtwagen 1", wall, ship);
+        Truck truck2 = new Truck("Vrachtwagen 2", wall, ship);
+        Truck truck3 = new Truck("Vrachtwagen 3", wall, ship);
 
-        kraan1.start();
-        kraan2.start();
+        crane1.start();
+        crane2.start();
+        
+        truck1.start();
     }
 }
