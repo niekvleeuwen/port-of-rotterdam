@@ -1,10 +1,12 @@
 public class Container{
-    String name;
-    Container(String name){
-        this.name = name;
+    private int number; //dit is het volgnummer
+
+    Container(int number){
+        this.number = number;
     }
 
-    public String getName(){
-        return name;
+    //deze functie geeft het volgnummer terug
+    public int getNumber(){
+        return number;
     }
 }

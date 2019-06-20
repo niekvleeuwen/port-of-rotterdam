@@ -2,14 +2,22 @@ import java.util.Random;
 
 public abstract class Mover extends Thread{
     private Random r;
+    private String name;
 
-    Mover(){
+    Mover(String name){
         r = new Random();
+        this.name = name;
     }
     
-    //this function creates a random integer between the integers passed as parameters
+    //deze functie geeft een random getal binnen twee meegegeven grenzen
     public int randInt(int min, int max) {
         int randomNum = r.nextInt((max - min) + 1) + min;
         return randomNum;
     }
+
+    //deze functie geeft de naam van het object terug
+    public String getNaam(){
+        return name;
+    }
+
 }

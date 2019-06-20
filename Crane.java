@@ -1,11 +1,11 @@
 public class Crane extends Mover {
-    String name;
-    Wall wall;
-    Ship ship;
-    Long duration;
+    private Wall wall;
+    private Ship ship;
+    private Long duration;
+
 
     Crane(String name, Wall wall, Ship ship){
-        this.name = name;
+        super(name);
         this.wall = wall;
         this.ship = ship;
     }
@@ -15,25 +15,31 @@ public class Crane extends Mover {
             while(true){
                 Container container = ship.getContainer();
                 if(container != null){
-                    System.out.println(name + " begint nu met lossen van " + container.getName() + ".."); 
+                    System.out.println(getNaam() + " begint nu met lossen van container " + container.getNumber() + ".."); 
                     duration = (long) randInt(1000, 6000); //het lossen van een container durationt 1 - 6 seconden
-                    Thread.sleep(duration);
-
-                    //loop totdat een vrachtwagen de container heeft verplaats zodat er weer ruimte is
-
-                    if(wall.countContainers() < wall.getMaxContainers()){
-                        System.out.println(name + " heeft " + container.getName() + " op de wall gezet. Dit durationde " + duration + " milliseconden.");
-                        wall.add(container);
+                    Thread.sleep(duration); //slaap voor de random tijd die we net gekregen hebben
+                    if(wall.spaceAvailable()){ //checken of er ruimte is op de kade
+                        System.out.println(getNaam() + " heeft container " + container.getNumber() + " op de kade gezet. Dit duuurde " + duration + " milliseconden.");
+                        wall.add(container); //voeg de container toe aan de kade
                     }else{
-                        System.out.println(name + " wacht nu op ruimte op de wall.."); //hier notify/wait
+                        System.out.println(getNaam() + " wacht nu op ruimte op de kade..");
+                        //de kraan moet wachten totdat er ruimte is gecreëerd op de kade
+                        synchronized(this){
+                            try{
+                                wait();
+                            }catch(Exception e){
+                                e.printStackTrace();
+                            }
+                        }
                     }
                 }else{
-                    break; //er zijn geen containers meer op het Ship
+                    System.out.println(getNaam() + " gaat nu afsluiten.");
+                    break; //er zijn geen containers meer op het schip dus de kraan kan stoppen
                 }
             }
         }
         catch (InterruptedException e) {
-            System.out.println(name + " onderbroken");
+            System.out.println(getNaam() + " onderbroken");
         }
     }
 }
